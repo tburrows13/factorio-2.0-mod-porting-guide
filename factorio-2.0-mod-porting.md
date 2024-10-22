@@ -215,7 +215,7 @@ Find: `(\{\s?)type(\s?=\s?".*")(,\s?)position`
 Replace: `$1flow_direction$2, direction = defines.direction.north, position`
 
 ### Fluidboxes
-Volume calculated from area*level*100. Re-run the find-replace for each combination of area/level you find.
+Volume calculated from `area*level*100`. Re-run the find-replace for each combination of area/level you find.
 
 Find: `\s*base_area = 10,(\s*)base_level = 1,`
 
