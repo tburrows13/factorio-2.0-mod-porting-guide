@@ -1,5 +1,6 @@
 Porting a 1.1 mod to 2.0 is _hard work_. Many changes have occured, and whilst the 2.0 docs are in a good state, there is no comphrehensive documentation detailing how each thing has _changed_. This guide won't explain every change, but it will hopefully set you up to discover how to make the changes yourself.
 
+\- Xorimuth
 # Table of Contents
 1. [Important links](#Important-links)
 2. [Steps](#Steps)
@@ -55,7 +56,7 @@ If you encounter errors while playing ingame, it is probably because something h
 
 1. Find the relevant section of code in your mod, and work out what it is trying to do.
 2. Search (Control+F) [the changelog](https://forums.factorio.com/116184) to see if there's any changes mentioned in this area.
-3. Search [the docs](https://lua-api.factorio.com/latest/).
+3. Search [the docs](https://lua-api.factorio.com/latest/) and ensure that what you are doing matches exactly with what the docs are expecting.
 4. Search (Control+Shift+F) in `./data` to see if there's any references to this thing in __base__/__core__. This might give you examples as to how it is now used.
 5. Still stuck? You can try searching the 1.1 docs or the 1.1 `./data` directory to see how things used to be. This might give you some more clues on where it went, or what to search for in the changelog.
 
