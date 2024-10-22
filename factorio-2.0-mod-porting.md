@@ -39,7 +39,7 @@ Here's the long process. Enable your mod, reach an error, fix the error, reload 
 Now that you've reached the main menu, start a new game with your mod, play around with it, or load an existing save. Fix any errors as they come up. You can Control+Click on "Single player" in the main menu to quickly enter a testing world, then run `/cheat all`. Install [Editor Extensions](https://mods.factorio.com/mod/EditorExtensions) if you want the test world to be immediately populated by cheat tooling.
 
 ## 7. Clean up loose ends
-From the main menu, Control+Alt+Click on "Settings". Then click on "The rest" and enabled "check-unused-prototype-data". Reload your game, and check `factorio-current.log`. You will likely log lines like this:
+From the main menu, Control+Alt+Click on "Settings". Then click on "The rest" and enable "check-unused-prototype-data". Reload your game, and check `factorio-current.log`. You will likely log lines like this:
 ```
    3.744 Warning PrototypeLoader.cpp:199: Value ROOT.shortcut.spidertron-enhancements-recall-shortcut.icon_mipmaps was not used.
 ```
