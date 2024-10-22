@@ -209,7 +209,7 @@ Caveats:
 - doesn't work correctly on sprite prototypes (`type = "sprite"`)
 
 ### Rename/delete graphics files
-`delete_files_with_hr_version.py` deletes all files where there is also a file with hr- existing in the same folder.
+`remove_files_with_hr_version.py` deletes all files where there is also a file with hr- existing in the same folder.
 `rename_hr_files.py` renames files, removing hr- from their names.
 
 Run them in that order. Why 2 separate steps? Do a commit in between and git will realise that it is a deletion and rename, rather than a file-change and deletion. 
