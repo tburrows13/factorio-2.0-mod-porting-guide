@@ -1,5 +1,12 @@
 Porting a 1.1 mod to 2.0 is _hard work_. Many changes have occured, and whilst the 2.0 docs are in a good state, there is no comphrehensive documentation detailing how each thing has _changed_. This guide won't explain every change, but it will hopefully set you up to discover how to make the changes yourself.
 
+# Table of Contents
+1. [Important links](#Important-links)
+2. [Steps](#Steps)
+3. [When you reach an error](#When-you-reach-an-error)
+4. [Notable changes](#Notable-changes)
+5. [Advanced tools](#Advanced-tools)
+
 # Important links
 - [2.0 changelog](https://forums.factorio.com/116184) - Especially the sections __Modding__ (for prototype/data stage) and __Scripting__ (for runtime/control stage).
 - [2.0 docs](https://lua-api.factorio.com/latest/) - The docs detail the exact specification for everything in 2.0.
