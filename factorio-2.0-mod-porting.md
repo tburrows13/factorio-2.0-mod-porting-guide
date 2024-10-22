@@ -121,7 +121,7 @@ In 1.1, most graphics definitions would define a standard definition and a high-
 -  },
 -},
 +{
-+  filename = "__base__/graphics/entity/artillery-turret/artillery-turret-base.png",
++  filename = "__base__/graphics/entity/artillery-turret/hr-artillery-turret-base.png",
 +  height = 200,
 +  width = 208,
 +  priority = "high",
@@ -164,6 +164,21 @@ If you were relying on any styles defined by __core__, they have probably change
 ### Script rendering
 Script [rendering](https://lua-api.factorio.com/latest/classes/LuaRendering.html) is now done by manipulating [render-objects](https://lua-api.factorio.com/latest/classes/LuaRenderObject.html) directly rather than by ID. You can use [`rendering.get_object_by_id(my_id)`](https://lua-api.factorio.com/latest/classes/LuaRendering.html#get_object_by_id) to convert IDs to objects in migrations.
 
+### Logistic points
+Logistic requests are now handled through [Logistic Points](https://lua-api.factorio.com/latest/classes/LuaLogisticPoint.html), accessible from the entity via [`get_logistic_point`](https://lua-api.factorio.com/latest/classes/LuaEntity.html#get_logistic_point).
+
+TODO
+
+### on_entity_destroyed -> on_object_destroyed
+And associated `event.unit_number` -> `event.useful_id`.
+
+TODO
+
+### Quality in item stacks
+Especially `get_contents`. TODO
+
+### Player position vs physical_position
+TODO
 
 # Advanced tools
 If you have a _lot_ of prototype-stage definitions to convert, you may find the following helpful. Please don't use them unless you have everything backed up using git, and they should be used with careful hand-holding.
