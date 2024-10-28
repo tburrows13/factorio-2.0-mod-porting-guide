@@ -204,7 +204,7 @@ Replace: `$1results = {{type="item", name=$2, amount=1}},`
 ### Convert shorthand to longhand in ingredients/results
 (careful, don’t apply to tech `unit` or localised-strings)
 
-Find: `\{"(.*)",\s?(\d+)\}`
+Find: `\{"(.*)",\s*(\d+)\}`
 
 Replace: `{type="item", name="$1", amount=$2}`
 
