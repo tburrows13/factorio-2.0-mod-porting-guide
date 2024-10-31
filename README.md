@@ -9,12 +9,12 @@ Porting a 1.1 mod to 2.0 is _hard work_. Many changes have occured, and whilst t
 5. [Advanced tools](#Advanced-tools)
 
 # Important links
-- [2.0 changelog](https://forums.factorio.com/116184) - Especially the sections __Modding__ (for prototype/data stage) and __Scripting__ (for runtime/control stage).
+- [2.0 changelog](https://github.com/tburrows13/factorio-2.0-mod-porting-guide/blob/master/2.0-changelog-filtered.md) - Especially the sections __Modding__ (for prototype/data stage) and __Scripting__ (for runtime/control stage).
 - [2.0 docs](https://lua-api.factorio.com/latest/) - The docs detail the exact specification for everything in 2.0.
 - [1.1 docs](https://lua-api.factorio.com/1.1.110/) - The 1.1 docs are still useful! If you come across a part of your mod that isn't working in 2.0, refer to the 1.1 docs to see how it used to work, and then maybe that will help you find similar functionality in the 2.0 docs.
 - [Base & Core mod changes](https://github.com/wube/factorio-data/commit/7522d3763e76e09ce1a46cba676dfc2b6d12b127) - A lot of the changes in 2.0 aren't in the docs at all, because they are changes in __base__ and __core__ 'mods'. This (large!) diff shows all the changes to these 'mods'.
 - [Application directory](https://wiki.factorio.com/Application_directory#Application_directory) - Explains how to access `./data`, which contains __base__ and __core__ mods that you already have as part of your installation. Open `./data` in VSCode and use "Find in files" (Ctrl+Shift+F) to search through them. I've also found the 1.1 data files useful when porting - you can download them from the [factorio-data repo](https://github.com/wube/factorio-data/tree/1.1.110).
-- [VSCode Factorio Modding Tool Kit](https://marketplace.visualstudio.com/items?itemName=justarandomgeek.factoriomod-debug) and [Setup video](https://youtu.be/oNfMNFxy2X4) - This isn't essential, but it can help a lot if you're familiar with debuggers. To enable the debugger in data stage, use the "(Settings & Data)" debug preset. Even if you don't install it for the debugger, once set up it will start pointing out things that you've done wrong, which is a sign that that thing might have changed in 2.0.
+- [VSCode Factorio Modding Tool Kit](https://marketplace.visualstudio.com/items?itemName=justarandomgeek.factoriomod-debug) and [Setup video](https://youtu.be/oNfMNFxy2X4) - This isn't essential, but it can help a lot if you're familiar with debuggers. To enable the debugger in data stage, use the "(Settings & Data)" debug preset. Even if you don't install it for the debugger, once set up it will start pointing out things that you've done wrong, which is a sign that that thing might have changed in 2.0. For some changed functions, fmtk will even mark them as deprecated by crossing them out - hovering over them will tell you which functions to change to.
 
 # Steps
 
@@ -46,6 +46,8 @@ From the main menu, Control+Alt+Click on "Settings". Then click on "The rest" an
 ```
 These warnings tell you which prototype properties aren't being loaded. This may point to further things you need to change, or just tell you about things that are no longer necessary and you can safely delete (e.g. `icon_mipmaps` is no longer needed anywhere).
 
+## 8. 2.0 polish
+Now that your mod is fully functional, read https://github.com/tburrows13/factorio-2.0-mod-porting-guide/blob/master/utilising-2.0-features.md for ways to make your mod fit better into 2.0/Space Age.
 
 # When you reach an error
 If you reach errors in prototype-stage lua execution, it is probably because something has changed or been removed in __base__/__core__.
@@ -152,8 +154,9 @@ In 1.1, `animations` and `working_visualisations` were set on the prototype dire
 +my_prototype.hidden = true
 ```
 
-### Pipe connections
-TODO
+### Fluidboxes and pipe connections
+Fluidbox `base_area`, `base_level`, and `height` has been replaced by just `volume`, which should be set equal to `area*level*100`.
+Pipe connection `type` -> `flow_direction`, and connection positions should be reduced by 1 in the direction that pipe is facing.
 
 ## Runtime stage
 ### global -> storage
@@ -170,16 +173,18 @@ Logistic requests are now handled through [Logistic Points](https://lua-api.fact
 
 TODO
 
+### Wire connections and control behaviours
+See [this commit](https://github.com/RedRafe/solar-productivity/commit/f8c15f7caaec18e89e87f3956b27762e939b7d7b) for some examples of changes to `circuit_connection_definitions`, `connect_neighbour`, and `get_control_behavior`
+
 ### on_entity_destroyed -> on_object_destroyed
 And associated `event.unit_number` -> `event.useful_id`.
-
-TODO
 
 ### Quality in item stacks
 Especially `get_contents`. TODO
 
-### Player position vs physical_position
-TODO
+### Remote view
+Replace `player.open_map(new_position)` or `player.zoom_to_world(new_position)` with `player.set_controller({type = defines.controllers.remote, position = new_position})`. Currently `player.close_map()` has no replacement, and there is no way to set the zoom level.
+When in remote view, a player's `position`, `surface`, etc will be the position that they are currently viewing. To get their _character's_ position, use [`player.physical_position`](https://lua-api.factorio.com/latest/classes/LuaPlayer.html#physical_position), `physical_surface`, etc instead.
 
 # Advanced tools
 If you have a _lot_ of prototype-stage definitions to convert, you may find the following helpful. Please don't use them unless you have everything backed up using git, and they should be used with careful hand-holding.
@@ -232,7 +237,7 @@ Caveats:
 - doesn't work correctly on sprite prototypes (`type = "sprite"`)
 
 ### Rename/delete graphics files
-`remove_files_with_hr_version.py` deletes all files where there is also a file with hr- existing in the same folder.
+`delete_files_with_hr_version.py` deletes all files where there is also a file with hr- existing in the same folder.
 `rename_hr_files.py` renames files, removing hr- from their names.
 
 Run them in that order. Why 2 separate steps? Do a commit in between and git will realise that it is a deletion and rename, rather than a file-change and deletion. 

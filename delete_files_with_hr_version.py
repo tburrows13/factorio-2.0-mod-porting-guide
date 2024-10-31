@@ -19,7 +19,7 @@ def delete_files_with_hr_version(directory):
 if __name__ == "__main__":
     # Ensure a directory path is provided as a command line argument
     if len(sys.argv) < 2:
-        print("Usage: python remove_files_with_hr_version.py <directory_path>")
+        print("Usage: python delete_files_with_hr_version.py <directory_path>")
         sys.exit(1)
 
     # Get the directory path from the command line argument
