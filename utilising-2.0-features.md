@@ -1,13 +1,20 @@
 This page is a brief summary pointing you towards some 2.0 features you may wish to implement, to make your mod fit in better with base 2.0 and Space Age.
 
 ### Factoriopedia
-Items, recipes, and entities will only be grouped under the same factoriopedia entry if they have the same internal name.
-Use `hidden_in_factoriopedia` to hide things.
-Use `factoriopedia_description` to give things longer descriptions.
-Use `factoriopedia_simulation` for things like trains that don't look as good when just placed in the world (see base mod for examples).
+Items, recipes, and entities will only be grouped under the same factoriopedia entry if they have the same internal name.  
+Use `hidden_in_factoriopedia` to hide things. Things that are already `hidden` are also `hidden_in_factoriopedia` by default.
+Use `factoriopedia_description` to give things longer descriptions.  
+Use `factoriopedia_simulation` for things like trains that don't look as good when just placed in the world (see base mod for examples).  
 
 ### Auto-recycle
-If quality-mod is generating recycling recipes that you don't want, you can set `auto_recycle = false` in the recipe to tell it not to.
+The `quality` mod generates recycling recipes during data-updates stage.
+
+If your item has multiple recipes, it's a good idea to set `auto_recycle = false` on all recipes except the one you want to be used for the recycling recipe. Otherwise, the recipe used for the recycling recipe will be the last one by name order.  
+If all recipes are set to `auto_recycle = false`, the item will recycle into itself.  
+Some recipes are already `auto_recycle = false` by default based on their category or name (smelting, chemistry, crushing, metallurgy (partial), organic, all science packs). You cannot override this.  
+
+To make an item completely unrecyclable, you need to delete the recycling recipe after it's created:  
+`data.raw.recipe[item.name .. "-recycling"] = nil`
 
 ### Item sounds
 Every item now has sounds for inventory-move, pickup, and drop. You'll want to copy sounds from vanilla items that have a similar feel to yours.
