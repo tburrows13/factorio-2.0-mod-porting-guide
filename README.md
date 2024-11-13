@@ -233,7 +233,7 @@ Replace: `\n$1volume = 1000,`
 
 Caveats:
 - only works if your graphics definitions are correctly indented
-- only works if your files use tabs rather than spaces (use VSCode regex find-replace `\t` -> `  ` to fix)
+- only works if your files use spaces rather than tabs (use VSCode regex find-replace `\t` -> `  ` to fix)
 - doesn't work correctly on sprite prototypes (`type = "sprite"`)
 
 ### Rename/delete graphics files
