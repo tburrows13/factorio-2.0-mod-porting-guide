@@ -155,8 +155,8 @@ In 1.1, `animations` and `working_visualisations` were set on the prototype dire
 ```
 
 ### Fluidboxes and pipe connections
-Fluidbox `base_area`, `base_level`, and `height` has been replaced by just `volume`, which should be set equal to `area*level*100`.
-Pipe connection `type` -> `flow_direction`, and connection positions should be reduced by 1 in the direction that pipe is facing.
+Fluidbox `base_area`, `base_level`, and `height` have all been replaced by just `volume`, which should be set equal to `base_area × height × 100`. If you were using `base_level` to control whether fluids can flow in/out, ensure `flow_direction` on each pipe connection is set correctly instead.
+In `pipe_connections`, `type` has been renamed to `flow_direction`, connection direction must be specified in `direction`, and connection positions should be reduced by 1 in the direction that the pipe connection is facing.
 
 ## Runtime stage
 ### global -> storage
@@ -213,19 +213,19 @@ Find: `\{"(.*)",\s*(\d+)\}`
 
 Replace: `{type="item", name="$1", amount=$2}`
 
+### Fluidboxes
+Volume calculated from `base_area*height*100`. Re-run the find-replace for each combination of area/height you find.
+
+Find: `\s*base_area = 10,(\s*)height = 1,`
+
+Replace: `\n$1volume = 1000,`
+
 ### Pipe connections
 Requires manually changing direction and position afterwards. Position should be reduced by 1 in the direction it is facing.
 
 Find: `(\{\s?)type(\s?=\s?".*")(,\s?)position`
 
 Replace: `$1flow_direction$2, direction = defines.direction.north, position`
-
-### Fluidboxes
-Volume calculated from `area*level*100`. Re-run the find-replace for each combination of area/level you find.
-
-Find: `\s*base_area = 10,(\s*)base_level = 1,`
-
-Replace: `\n$1volume = 1000,`
 
 ## Python scripts
 ### Remove hr_version
